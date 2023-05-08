@@ -38,7 +38,23 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
+        ],
+        'applicant' => [
+            'driver' => 'session',
+            'provider' => 'applicants',
+        ],
+        'director' => [
+            'driver' => 'session',
+            'provider' => 'directors',
+        ],
+        'psychiatric' => [
+            'driver' => 'session',
+            'provider' => 'psychiatrics',
+        ],
+        'register' => [
+            'driver' => 'session',
+            'provider' => 'registers',
         ],
     ],
 
@@ -62,7 +78,23 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Admin::class,
+        ],
+        'applicants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Applicant::class,
+        ],
+        'directors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Director::class,
+        ],
+        'psychiatrics' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Psychiatric::class,
+        ],
+        'registers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Register::class,
         ],
 
         // 'users' => [
