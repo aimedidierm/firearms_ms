@@ -28,7 +28,21 @@ class ApplicantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'names' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+            'phone' => 'required',
+            'password' => 'required'
+        ]);
+        $applicant = new Applicant;
+        $applicant->names = $request->names;
+        $applicant->email = $request->email;
+        $applicant->address = $request->address;
+        $applicant->phone = $request->phone;
+        $applicant->password = bcrypt($request->password);
+        $applicant->save();
+        return redirect(route("login"));
     }
 
     /**

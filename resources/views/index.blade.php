@@ -66,25 +66,29 @@
 
             <div id="register" class="animate form registration_form">
                 <section class="login_content">
-                    <form>
+                    <form action="/create" method="POST">
                         <h1>Create Account</h1>
+                        @if($errors->any())<span style="color: red;"> {{$errors->first()}}</span> @else
+                        <p class="login-box-msg">fill your details</p> @endif
+                        @csrf
                         <div>
-                            <input type="text" class="form-control" placeholder="Names" required="" />
+                            <input type="text" class="form-control" name="names" placeholder="Names" required="" />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Email" required="" />
+                            <input type="email" class="form-control" name="email" placeholder="Email" required="" />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Address" required="" />
+                            <input type="text" class="form-control" name="address" placeholder="Address" required="" />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Phone" required="" />
+                            <input type="text" class="form-control" name="phone" placeholder="Phone" required="" />
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Password" required="" />
+                            <input type="password" class="form-control" name="password" placeholder="Password"
+                                required="" />
                         </div>
                         <div>
-                            <a class="btn btn-default submit" href="#">Submit</a>
+                            <button type="submit" class="btn btn-success btn-block">Create account</button>
                         </div>
 
                         <div class="clearfix"></div>

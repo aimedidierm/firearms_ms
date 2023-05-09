@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+//public Routes
 Route::view('/', 'index')->name('login');
 Route::post('/', [AuthController::class, 'login']);
-ROute::get('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/create', [ApplicantController::class, 'store']);
+
+//Admin routes
+Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {
+    Route::get('/', [AdminController::class, 'create']);
+});
