@@ -21,8 +21,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $admin = Admin::where('id', Auth::id());
-        return $admin;
+        $admin = Admin::where('id', Auth::id())->first();
+        return view('admin.profile', ["data" => $admin]);
     }
 
     /**
@@ -52,9 +52,15 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "sometimes|string",
+            "email" => "sometimes|email",
+            "address" => "sometimes|address",
+            "firstPassword" => "required",
+            "confirmPassword" => "required"
+        ]);
     }
 
     /**
