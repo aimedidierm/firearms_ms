@@ -78,4 +78,26 @@ class ApplicantController extends Controller
     {
         //
     }
+
+    public function psychiatricList()
+    {
+        $data = Applicant::latest()->where("status", "rApproved")->where("rejected", false)->get();
+        return view('psychiatric.applicant', ["data" => $data]);
+    }
+
+    public function reject($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->rejected = true;
+        $applicant->update();
+        return redirect("/psychiatric/applicants");
+    }
+
+    public function approve($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "pApproved";
+        $applicant->update();
+        return redirect("/psychiatric/applicants");
+    }
 }

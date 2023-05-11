@@ -69,7 +69,7 @@
                     <form action="/create" method="POST">
                         <h1>Create Account</h1>
                         @if($errors->any())<span style="color: red;"> {{$errors->first()}}</span> @else
-                        <p class="login-box-msg">fill your details</p> @endif
+                        <p class="login-box-msg">Fill your details</p> @endif
                         @csrf
                         <div>
                             <input type="text" class="form-control" name="names" placeholder="Names" required="" />

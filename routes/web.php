@@ -54,6 +54,9 @@ Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirec
 Route::group(["prefix" => "psychiatric", "middleware" => ["auth:psychiatric", "isPsychiatric"], "as" => "psychiatric."], function () {
     Route::get('/', [PsychiatricController::class, 'create']);
     Route::post('/', [PsychiatricController::class, 'update']);
+    Route::get('/applicants', [ApplicantController::class, 'psychiatricList']);
+    Route::get('/applicants/approve/{id}', [ApplicantController::class, 'approve']);
+    Route::get('/applicants/reject/{id}', [ApplicantController::class, 'reject']);
 });
 
 //Register routes
