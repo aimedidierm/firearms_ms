@@ -33,6 +33,9 @@
 
 
                                         <tbody>
+                                            @if ($data->isEmpty())
+                                            <td colspan="4"> No data in table </td>
+                                            @endif
                                             @foreach ($data as $item)
                                             <tr>
                                                 <td>{{$item->names}}</td>
