@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\PsychiatricController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +32,8 @@ Route::post('/create', [ApplicantController::class, 'store']);
 //Admin routes
 Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {
     Route::get('/', [AdminController::class, 'create']);
+    Route::post('/', [AdminController::class, 'update']);
+    Route::resource('/directors', DirectorController::class)->only('index', 'store', 'show', 'update', 'destroy');
+    Route::resource('/registers', RegisterController::class)->only('index', 'store', 'show', 'update', 'destroy');
+    Route::resource('/psychiatrics', PsychiatricController::class)->only('index', 'store', 'show', 'update', 'destroy');
 });

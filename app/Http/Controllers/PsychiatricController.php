@@ -12,7 +12,8 @@ class PsychiatricController extends Controller
      */
     public function index()
     {
-        //
+        $data = Psychiatric::latest()->get();
+        return view('admin.psychiatrics', ["data" => $data]);
     }
 
     /**
@@ -28,7 +29,19 @@ class PsychiatricController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "names" => "required|string",
+            "email" => "required|email",
+            "address" => "required|string",
+            "password" => "required|string"
+        ]);
+        $psychiatric = new Psychiatric;
+        $psychiatric->names = $request->names;
+        $psychiatric->email = $request->email;
+        $psychiatric->address = $request->address;
+        $psychiatric->password = bcrypt($request->password);
+        $psychiatric->save();
+        return redirect('/admin/psychiatrics');
     }
 
     /**
@@ -60,6 +73,7 @@ class PsychiatricController extends Controller
      */
     public function destroy(Psychiatric $psychiatric)
     {
-        //
+        $psychiatric->delete();
+        return redirect('/admin/psychiatrics');
     }
 }

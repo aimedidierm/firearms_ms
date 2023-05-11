@@ -57,10 +57,11 @@ class AdminController extends Controller
         $request->validate([
             "name" => "sometimes|string",
             "email" => "sometimes|email",
-            "address" => "sometimes|address",
+            "address" => "sometimes",
             "firstPassword" => "required",
             "confirmPassword" => "required"
         ]);
+        return redirect('/admin');
     }
 
     /**

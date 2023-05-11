@@ -12,7 +12,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        $data = Director::latest()->get();
+        return view('admin.directors', ["data" => $data]);
     }
 
     /**
@@ -28,7 +29,19 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "names" => "required|string",
+            "email" => "required|email",
+            "address" => "required|string",
+            "password" => "required|string"
+        ]);
+        $director = new Director;
+        $director->names = $request->names;
+        $director->email = $request->email;
+        $director->address = $request->address;
+        $director->password = bcrypt($request->password);
+        $director->save();
+        return redirect('/admin/directors');
     }
 
     /**
@@ -60,6 +73,7 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->delete();
+        return redirect('/admin/directors');
     }
 }
