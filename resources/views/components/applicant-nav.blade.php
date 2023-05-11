@@ -21,6 +21,19 @@
         <br />
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <li><a href="/applicant/application"><i class="fa fa-file"></i> Application form </span></a>
+                    </li>
+                    <li><a href="/applicant/status"><i class="fa fa-check-square"></i> Status </span></a>
+                    </li>
+                    <li><a href="/applicant/training"><i class="fa fa-male"></i> Training </span></a>
+                    </li>
+                    <li><a href="/applicant/exam"><i class="fa fa-bars"></i> Exam </span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu_section">
                 <h3>Account management</h3>
                 <ul class="nav side-menu">
                     <li><a href="/applicant"><i class="fa fa-gear"></i> Settings </span></a>

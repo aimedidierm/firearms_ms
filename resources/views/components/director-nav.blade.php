@@ -21,6 +21,22 @@
         <br />
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <li><a href="/director/applicants"><i class="fa fa-users"></i> All applicants </span></a>
+                    </li>
+                    <li><a href="/director/psychiatric"><i class="fa fa-university"></i> Psychiatric approved
+                            </span></a>
+                    </li>
+                    <li><a href="/director/trained"><i class="fa fa-male"></i> Applicants in training</span></a>
+                    </li>
+                    <li><a href="/director/exam"><i class="fa fa-bars"></i> Exams</span></a>
+                    </li>
+                    <li><a href="/director/approved"><i class="fa fa-check"></i> Approved</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu_section">
                 <h3>Account management</h3>
                 <ul class="nav side-menu">
                     <li><a href="/director"><i class="fa fa-gear"></i> Settings </span></a>

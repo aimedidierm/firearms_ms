@@ -21,6 +21,13 @@
         <br />
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <li><a href="/psychiatric/applicants"><i class="fa fa-users"></i> Applicants </span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu_section">
                 <h3>Account management</h3>
                 <ul class="nav side-menu">
                     <li><a href="/psychiatric"><i class="fa fa-gear"></i> Settings </span></a>
