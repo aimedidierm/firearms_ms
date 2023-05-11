@@ -156,4 +156,34 @@ class ApplicantController extends Controller
         $data = Applicant::latest()->where("rejected", true)->get();
         return view("register.rejected", ["data" => $data]);
     }
+
+    public function directorList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "send")->get();
+        return view("director.applicants", ["data" => $data]);
+    }
+
+    public function directorRegisterList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "rApproved")->get();
+        return view("director.psychiatric", ["data" => $data]);
+    }
+
+    public function directorPsychiatricList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "PApproved")->get();
+        return view("director.psychiatric", ["data" => $data]);
+    }
+
+    public function directorApprovedList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "approved")->get();
+        return view("director.approved", ["data" => $data]);
+    }
+
+    public function directorRejectedList()
+    {
+        $data = Applicant::latest()->where("rejected", true)->get();
+        return view("director.rejected", ["data" => $data]);
+    }
 }

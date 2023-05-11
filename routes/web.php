@@ -48,6 +48,11 @@ Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApp
 Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirector"], "as" => "director."], function () {
     Route::get('/', [DirectorController::class, 'create']);
     Route::post('/', [DirectorController::class, 'update']);
+    Route::get('/applicants', [ApplicantController::class, 'directorList']);
+    Route::get('/register', [ApplicantController::class, 'directorRegisterList']);
+    Route::get('/trained', [ApplicantController::class, 'directorPsychiatricList']);
+    Route::get('/approved', [ApplicantController::class, 'directorApprovedList']);
+    Route::get('/rejected', [ApplicantController::class, 'directorRejectedList']);
 });
 
 //Psychiatric routes
