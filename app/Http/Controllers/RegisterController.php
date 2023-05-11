@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -21,7 +22,8 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        //
+        $register = Register::where('id', Auth::guard("register")->id())->first();
+        return view('register.profile', ["data" => $register]);
     }
 
     /**

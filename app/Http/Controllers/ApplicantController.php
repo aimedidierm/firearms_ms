@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicantController extends Controller
 {
@@ -20,7 +21,8 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        //
+        $applicant = Applicant::where('id', Auth::guard("applicant")->id())->first();
+        return view('applicant.profile', ["data" => $applicant]);
     }
 
     /**

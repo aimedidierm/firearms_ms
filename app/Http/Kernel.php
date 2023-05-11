@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'isApplicant' => \App\Http\Middleware\isApplicant::class,
         'isDirector' => \App\Http\Middleware\isDirector::class,
         'isRegister' => \App\Http\Middleware\isRegister::class,
+        'isPsychiatric' => \App\Http\Middleware\isPsychiatric::class,
     ];
 }

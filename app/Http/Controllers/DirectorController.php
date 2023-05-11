@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DirectorController extends Controller
 {
@@ -21,7 +22,8 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        $director = Director::where('id', Auth::guard("director")->id())->first();
+        return view('director.profile', ["data" => $director]);
     }
 
     /**

@@ -37,3 +37,27 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => 
     Route::resource('/registers', RegisterController::class)->only('index', 'store', 'show', 'update', 'destroy');
     Route::resource('/psychiatrics', PsychiatricController::class)->only('index', 'store', 'show', 'update', 'destroy');
 });
+
+//Applicant routes
+Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApplicant"], "as" => "applicant."], function () {
+    Route::get('/', [ApplicantController::class, 'create']);
+    Route::post('/', [ApplicantController::class, 'update']);
+});
+
+//Director routes
+Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirector"], "as" => "director."], function () {
+    Route::get('/', [DirectorController::class, 'create']);
+    Route::post('/', [DirectorController::class, 'update']);
+});
+
+//Psychiatric routes
+Route::group(["prefix" => "psychiatric", "middleware" => ["auth:psychiatric", "isPsychiatric"], "as" => "psychiatric."], function () {
+    Route::get('/', [PsychiatricController::class, 'create']);
+    Route::post('/', [PsychiatricController::class, 'update']);
+});
+
+//Register routes
+Route::group(["prefix" => "register", "middleware" => ["auth:register", "isRegister"], "as" => "register."], function () {
+    Route::get('/', [RegisterController::class, 'create']);
+    Route::post('/', [RegisterController::class, 'update']);
+});

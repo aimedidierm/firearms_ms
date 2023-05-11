@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Psychiatric;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PsychiatricController extends Controller
 {
@@ -21,7 +22,8 @@ class PsychiatricController extends Controller
      */
     public function create()
     {
-        //
+        $psychiatric = Psychiatric::where('id', Auth::guard("psychiatric")->id())->first();
+        return view('psychiatric.profile', ["data" => $psychiatric]);
     }
 
     /**

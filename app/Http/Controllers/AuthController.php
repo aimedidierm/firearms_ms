@@ -85,6 +85,9 @@ class AuthController extends Controller
         } else if (Auth::guard('psychiatric')->check()) {
             Auth::guard("psychiatric")->logout();
             return redirect(route("login"));
+        } else if (Auth::guard('register')->check()) {
+            Auth::guard("register")->logout();
+            return redirect(route("login"));
         }
     }
 }
