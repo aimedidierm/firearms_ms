@@ -30,7 +30,7 @@ class AuthController extends Controller
             $passwordMatch = Hash::check($password, $admin->password);
             if ($passwordMatch) {
                 Auth::login($admin);
-                return redirect("/admin");
+                return redirect("/admin/directors");
             } else {
                 return redirect("/")->withErrors(['msg' => 'Incorect password']);
             }
@@ -46,7 +46,7 @@ class AuthController extends Controller
             $passwordMatch = Hash::check($password, $director->password);
             if ($passwordMatch) {
                 Auth::guard("director")->login($director);
-                return redirect("/director");
+                return redirect("/director/applicants");
             } else {
                 return redirect("/")->withErrors(['msg' => 'Incorect password']);
             }
@@ -54,7 +54,7 @@ class AuthController extends Controller
             $passwordMatch = Hash::check($password, $psychiatric->password);
             if ($passwordMatch) {
                 Auth::guard("psychiatric")->login($psychiatric);
-                return redirect("/psychiatric");
+                return redirect("/psychiatric/applicants");
             } else {
                 return redirect("/")->withErrors(['msg' => 'Incorect password']);
             }
@@ -62,7 +62,7 @@ class AuthController extends Controller
             $passwordMatch = Hash::check($password, $register->password);
             if ($passwordMatch) {
                 Auth::guard("register")->login($register);
-                return redirect("/register");
+                return redirect("/register/applicants");
             } else {
                 return redirect("/")->withErrors(['msg' => 'Incorect password']);
             }
