@@ -186,4 +186,10 @@ class ApplicantController extends Controller
         $data = Applicant::latest()->where("rejected", true)->get();
         return view("director.rejected", ["data" => $data]);
     }
+
+    public function status()
+    {
+        $data = Applicant::where("id", Auth::guard("applicant")->id())->first();
+        return view("applicant.status", ["data" => $data]);
+    }
 }

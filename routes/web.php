@@ -42,6 +42,7 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => 
 Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApplicant"], "as" => "applicant."], function () {
     Route::get('/', [ApplicantController::class, 'create']);
     Route::post('/', [ApplicantController::class, 'update']);
+    Route::get('/status', [ApplicantController::class, 'status']);
 });
 
 //Director routes
