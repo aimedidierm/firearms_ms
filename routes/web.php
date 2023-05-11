@@ -63,4 +63,10 @@ Route::group(["prefix" => "psychiatric", "middleware" => ["auth:psychiatric", "i
 Route::group(["prefix" => "register", "middleware" => ["auth:register", "isRegister"], "as" => "register."], function () {
     Route::get('/', [RegisterController::class, 'create']);
     Route::post('/', [RegisterController::class, 'update']);
+    Route::get('/applicants', [ApplicantController::class, 'registerList']);
+    Route::get('/applicants/approve/{id}', [ApplicantController::class, 'registerApprove']);
+    Route::get('/applicants/reject/{id}', [ApplicantController::class, 'registerReject']);
+    Route::get('/trained', [ApplicantController::class, 'psychiatricApproved']);
+    Route::get('/approved', [ApplicantController::class, 'approved']);
+    Route::get('/rejected', [ApplicantController::class, 'rejected']);
 });

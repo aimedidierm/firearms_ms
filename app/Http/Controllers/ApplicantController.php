@@ -100,4 +100,60 @@ class ApplicantController extends Controller
         $applicant->update();
         return redirect("/psychiatric/applicants");
     }
+
+    public function registerList()
+    {
+        $data = Applicant::latest()->where("status", "send")->where("rejected", false)->get();
+        return view('register.applicant', ["data" => $data]);
+    }
+
+    public function registerReject($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->rejected = true;
+        $applicant->update();
+        return redirect("/register/applicants");
+    }
+
+    public function registerApprove($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "rApproved";
+        $applicant->update();
+        return redirect("/register/applicants");
+    }
+
+    public function psychiatricApproved()
+    {
+        $data = Applicant::latest()->where("status", "pApproved")->where("rejected", false)->get();
+        return view('register.trained', ["data" => $data]);
+    }
+
+    public function trainingReject($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->rejected = true;
+        $applicant->update();
+        return redirect("/register/trained");
+    }
+
+    public function trainingApprove($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "pApproved";
+        $applicant->update();
+        return redirect("/register/trained");
+    }
+
+    public function approved()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "approved")->get();
+        return view("register.approved", ["data" => $data]);
+    }
+
+    public function rejected()
+    {
+        $data = Applicant::latest()->where("rejected", true)->get();
+        return view("register.rejected", ["data" => $data]);
+    }
 }

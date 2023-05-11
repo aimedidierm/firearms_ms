@@ -25,14 +25,15 @@
                 <ul class="nav side-menu">
                     <li><a href="/register/applicants"><i class="fa fa-users"></i> Applicants </span></a>
                     </li>
-                    <li><a href="/register/psychiatric"><i class="fa fa-university"></i> Psychiatric approved
-                            </span></a>
-                    </li>
                     <li><a href="/register/trained"><i class="fa fa-male"></i> Applicants in training</span></a>
+                    </li>
+                    <li><a href="/director/training"><i class="fa fa-futbol-o"></i> Training</span></a>
                     </li>
                     <li><a href="/register/exam"><i class="fa fa-bars"></i> Exam</span></a>
                     </li>
                     <li><a href="/register/approved"><i class="fa fa-check"></i> Approved</span></a>
+                    </li>
+                    <li><a href="/register/rejected"><i class="fa fa-times-circle"></i> Rejected</span></a>
                     </li>
                 </ul>
             </div>
