@@ -20,7 +20,7 @@
                     <div class="x_content">
                         <br />
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"
-                            action="/applicant" method="POST">
+                            action="/applicant/{{Auth::guard('applicant')->id()}}" method="POST">
                             @if($errors->any())<span style="color: red;"> {{$errors->first()}}</span> @else @endif
                             @csrf
                             <div class="item form-group">

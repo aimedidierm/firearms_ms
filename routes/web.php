@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\PsychiatricController;
@@ -41,8 +42,9 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => 
 //Applicant routes
 Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApplicant"], "as" => "applicant."], function () {
     Route::get('/', [ApplicantController::class, 'create']);
-    Route::post('/', [ApplicantController::class, 'update']);
+    Route::resource('/', ApplicantController::class)->only('update');
     Route::get('/status', [ApplicantController::class, 'status']);
+    Route::resource('/application', ApplicationController::class)->only('index');
 });
 
 //Director routes

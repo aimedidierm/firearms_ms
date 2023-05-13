@@ -68,7 +68,15 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-        //
+        $request->validate([
+            "names" => "required|string",
+            "email" => "required|email",
+            "phone" => "required|string",
+            "address" => "required|string",
+            "firstPassword" => "required|string",
+            "confirmPassword" => "required|string"
+        ]);
+        return $request;
     }
 
     /**
