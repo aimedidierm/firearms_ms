@@ -56,8 +56,6 @@
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12 ">
-                                <label class="col-form-label col-md-3 col-sm-3 ">Gender
-                                </label>
                                 <div id="gender" class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-secondary" data-toggle-class="btn-primary"
                                         data-toggle-passive-class="btn-default">
@@ -115,11 +113,11 @@
                                 </select>
                             </div>
                             <div class="col-md-12 col-sm-12  form-group">
-                                <input type="text" placeholder="Why you need firearm??" class="form-control"
-                                    required="required">
+                                <input type="text" placeholder="Why you need firearm?" style="height:240px"
+                                    class="form-control" required="required">
                             </div>
                             <div class="form-group row">
-                                <div class="col-md-12 col-sm-12  offset-md-9">
+                                <div class="offset-md-9">
                                     <button type="submit" class="btn btn-success">Submit your application</button>
                                 </div>
                             </div>
