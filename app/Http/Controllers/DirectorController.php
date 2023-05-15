@@ -65,9 +65,22 @@ class DirectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Director $director)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "address" => "required|string",
+            "firstPassword" => "required|string",
+            "confirmPassword" => "required|string"
+        ]);
+        if ($request->firstPassword == $request->confirmPassword) {
+            $director = Director::where("id", Auth::guard("director")->id())->first();
+            $director->address = $request->address;
+            $director->password = bcrypt($request->firstPassword);
+            $director->update();
+            return redirect("/director");
+        } else {
+            return redirect("/director")->withErrors("Password not match");
+        }
     }
 
     /**

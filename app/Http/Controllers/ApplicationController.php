@@ -31,7 +31,8 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([]);
+        return $request;
     }
 
     /**

@@ -55,13 +55,19 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            "name" => "sometimes|string",
-            "email" => "sometimes|email",
-            "address" => "sometimes",
-            "firstPassword" => "required",
-            "confirmPassword" => "required"
+            "address" => "required|string",
+            "firstPassword" => "required|string",
+            "confirmPassword" => "required|string"
         ]);
-        return redirect('/admin');
+        if ($request->firstPassword == $request->confirmPassword) {
+            $admin = Admin::where("id", Auth::id())->first();
+            $admin->address = $request->address;
+            $admin->password = bcrypt($request->firstPassword);
+            $admin->update();
+            return redirect("/admin");
+        } else {
+            return redirect("/admin")->withErrors("Password not match");
+        }
     }
 
     /**

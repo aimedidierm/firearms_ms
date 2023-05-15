@@ -66,17 +66,24 @@ class ApplicantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Applicant $applicant)
+    public function update(Request $request)
     {
         $request->validate([
-            "names" => "required|string",
-            "email" => "required|email",
             "phone" => "required|string",
             "address" => "required|string",
             "firstPassword" => "required|string",
             "confirmPassword" => "required|string"
         ]);
-        return $request;
+        if ($request->firstPassword == $request->confirmPassword) {
+            $applicant = Applicant::where("id", Auth::guard("applicant")->id())->first();
+            $applicant->phone = $request->phone;
+            $applicant->address = $request->address;
+            $applicant->password = bcrypt($request->firstPassword);
+            $applicant->update();
+            return redirect("/applicant");
+        } else {
+            return redirect("/applicant")->withErrors("Password not match");
+        }
     }
 
     /**

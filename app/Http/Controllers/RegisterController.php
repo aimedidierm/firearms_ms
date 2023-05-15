@@ -65,9 +65,22 @@ class RegisterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Register $register)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "address" => "required|string",
+            "firstPassword" => "required|string",
+            "confirmPassword" => "required|string"
+        ]);
+        if ($request->firstPassword == $request->confirmPassword) {
+            $register = Register::where("id", Auth::guard("register")->id())->first();
+            $register->address = $request->address;
+            $register->password = bcrypt($request->firstPassword);
+            $register->update();
+            return redirect("/register");
+        } else {
+            return redirect("/register")->withErrors("Password not match");
+        }
     }
 
     /**

@@ -38,7 +38,7 @@ class AuthController extends Controller
             $passwordMatch = Hash::check($password, $applicant->password);
             if ($passwordMatch) {
                 Auth::guard("applicant")->login($applicant);
-                return redirect("/applicant");
+                return redirect("/applicant/application");
             } else {
                 return redirect("/")->withErrors(['msg' => 'Incorect password']);
             }

@@ -65,9 +65,22 @@ class PsychiatricController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Psychiatric $psychiatric)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "address" => "required|string",
+            "firstPassword" => "required|string",
+            "confirmPassword" => "required|string"
+        ]);
+        if ($request->firstPassword == $request->confirmPassword) {
+            $psychiatric = Psychiatric::where("id", Auth::guard("psychiatric")->id())->first();
+            $psychiatric->address = $request->address;
+            $psychiatric->password = bcrypt($request->firstPassword);
+            $psychiatric->update();
+            return redirect("/psychiatric");
+        } else {
+            return redirect("/psychiatric")->withErrors("Password not match");
+        }
     }
 
     /**

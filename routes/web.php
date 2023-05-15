@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\PsychiatricController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ Route::post('/create', [ApplicantController::class, 'store']);
 //Admin routes
 Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {
     Route::get('/', [AdminController::class, 'create']);
-    Route::post('/', [AdminController::class, 'update']);
+    Route::put('/', [AdminController::class, 'update']);
     Route::resource('/directors', DirectorController::class)->only('index', 'store', 'show', 'update', 'destroy');
     Route::resource('/registers', RegisterController::class)->only('index', 'store', 'show', 'update', 'destroy');
     Route::resource('/psychiatrics', PsychiatricController::class)->only('index', 'store', 'show', 'update', 'destroy');
@@ -42,15 +43,17 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => 
 //Applicant routes
 Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApplicant"], "as" => "applicant."], function () {
     Route::get('/', [ApplicantController::class, 'create']);
-    Route::resource('/', ApplicantController::class)->only('update');
+    Route::put('/', [ApplicantController::class, 'update']);
     Route::get('/status', [ApplicantController::class, 'status']);
     Route::resource('/application', ApplicationController::class)->only('index');
+    Route::get("/training", [TrainingController::class, 'applicantList']);
+    Route::get("/playlist/{id}", [TrainingController::class, 'playList']);
 });
 
 //Director routes
 Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirector"], "as" => "director."], function () {
     Route::get('/', [DirectorController::class, 'create']);
-    Route::post('/', [DirectorController::class, 'update']);
+    Route::put('/', [DirectorController::class, 'update']);
     Route::get('/applicants', [ApplicantController::class, 'directorList']);
     Route::get('/register', [ApplicantController::class, 'directorRegisterList']);
     Route::get('/trained', [ApplicantController::class, 'directorPsychiatricList']);
@@ -70,7 +73,7 @@ Route::group(["prefix" => "psychiatric", "middleware" => ["auth:psychiatric", "i
 //Register routes
 Route::group(["prefix" => "register", "middleware" => ["auth:register", "isRegister"], "as" => "register."], function () {
     Route::get('/', [RegisterController::class, 'create']);
-    Route::post('/', [RegisterController::class, 'update']);
+    Route::put('/', [RegisterController::class, 'update']);
     Route::get('/applicants', [ApplicantController::class, 'registerList']);
     Route::get('/applicants/approve/{id}', [ApplicantController::class, 'registerApprove']);
     Route::get('/applicants/reject/{id}', [ApplicantController::class, 'registerReject']);
