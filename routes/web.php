@@ -30,6 +30,7 @@ Route::view('/', 'index')->name('login');
 Route::post('/', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/create', [ApplicantController::class, 'store']);
+Route::get("/details/{id}", [ApplicationController::class, 'show']);
 
 //Admin routes
 Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {

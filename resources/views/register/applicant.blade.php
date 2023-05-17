@@ -42,7 +42,7 @@
                                                 <td>{{$item->email}}</td>
                                                 <td>{{$item->address}}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-success">Details</a>
+                                                    <a href="/details/{{$item->id}}" class="btn btn-success">Details</a>
                                                     <a href="/register/applicants/approve/{{$item->id}}"
                                                         class="btn btn-primary">Approve</a>
                                                     <a href="/register/applicants/reject/{{$item->id}}"

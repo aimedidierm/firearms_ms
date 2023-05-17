@@ -79,9 +79,15 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Application $application)
+    public function show($id)
     {
-        //
+        $application = Application::latest()->where("applicant_id", $id)->first();
+        if ($application != null) {
+            $application->load("applicants");
+            return view("details", ["data" => $application]);
+        } else {
+            return view("details", ["data" => null]);
+        }
     }
 
     /**

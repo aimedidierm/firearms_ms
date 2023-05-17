@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
+
+    public function applicants()
+    {
+        return $this->belongsTo(Applicant::class, 'applicant_id');
+    }
 }
