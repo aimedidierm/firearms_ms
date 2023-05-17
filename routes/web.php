@@ -45,7 +45,7 @@ Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApp
     Route::get('/', [ApplicantController::class, 'create']);
     Route::put('/', [ApplicantController::class, 'update']);
     Route::get('/status', [ApplicantController::class, 'status']);
-    Route::resource('/application', ApplicationController::class)->only('index');
+    Route::resource('/application', ApplicationController::class)->only('index', 'store');
     Route::get("/training", [TrainingController::class, 'applicantList']);
     Route::get("/playlist/{id}", [TrainingController::class, 'playList']);
 });

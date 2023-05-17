@@ -15,7 +15,11 @@ class ApplicationController extends Controller
     public function index()
     {
         $userDetails = Applicant::where('id', Auth::guard("applicant")->id())->first();
-        return view('applicant.application', ["data" => $userDetails]);
+        if ($userDetails->status != "none") {
+            return view('applicant.applied');
+        } else {
+            return view('applicant.application', ["data" => $userDetails]);
+        }
     }
 
     /**
@@ -31,8 +35,45 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([]);
-        return $request;
+        $request->validate([
+            "phone" => "required",
+            "birth" => "required|date",
+            "sex" => "required",
+            "status" => "required",
+            "province" => "required",
+            "district" => "required",
+            "sector" => "required",
+            "cell" => "required",
+            "village" => "required",
+            "personalStatus" => "required",
+            "rank" => "required",
+            "NID" => "required",
+            "type" => "required",
+            "comment" => "required",
+        ]);
+        $application = new Application;
+        $application->applicant_id = Auth::guard("applicant")->id();
+        $application->phone = $request->phone;
+        $application->birth = $request->birth;
+        $application->sex = $request->sex;
+        $application->materialStatus = $request->status;
+        $application->country = "Rwanda";
+        $application->province = $request->province;
+        $application->district = $request->district;
+        $application->sector = $request->sector;
+        $application->cell = $request->cell;
+        $application->village = $request->village;
+        $application->personStatus = $request->personalStatus;
+        $application->rank = $request->rank;
+        $application->NID = $request->NID;
+        $application->FirearmsType = $request->type;
+        $application->comment = $request->comment;
+        $application->save();
+
+        $applicant = Applicant::where("id", Auth::guard("applicant")->id())->first();
+        $applicant->status = "send";
+        $applicant->update();
+        return redirect("/applicant/application");
     }
 
     /**

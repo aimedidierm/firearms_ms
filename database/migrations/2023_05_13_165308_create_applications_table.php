@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('applicant_id')->on('applicants')->references('id')->onDelete("restrict");
             $table->string("phone");
             $table->date("birth");
-            $table->enum("sex", ["male", "Female"]);
+            $table->enum("sex", ["Male", "Female"]);
             $table->enum("materialStatus", ["single", "married"]);
             $table->string("country");
             $table->string("province");
