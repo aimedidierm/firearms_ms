@@ -48,7 +48,7 @@ Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApp
     Route::get('/status', [ApplicantController::class, 'status']);
     Route::resource('/application', ApplicationController::class)->only('index', 'store');
     Route::get("/training", [TrainingController::class, 'applicantList']);
-    Route::get("/playlist/{id}", [TrainingController::class, 'playList']);
+    Route::get("/playlist/{id}", [TrainingController::class, 'show']);
 });
 
 //Director routes
@@ -60,6 +60,8 @@ Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirec
     Route::get('/trained', [ApplicantController::class, 'directorPsychiatricList']);
     Route::get('/approved', [ApplicantController::class, 'directorApprovedList']);
     Route::get('/rejected', [ApplicantController::class, 'directorRejectedList']);
+    Route::get('/training', [TrainingController::class, 'directorList']);
+    Route::get("/playlist/{id}", [TrainingController::class, 'directorShow']);
 });
 
 //Psychiatric routes
@@ -81,4 +83,5 @@ Route::group(["prefix" => "register", "middleware" => ["auth:register", "isRegis
     Route::get('/trained', [ApplicantController::class, 'psychiatricApproved']);
     Route::get('/approved', [ApplicantController::class, 'approved']);
     Route::get('/rejected', [ApplicantController::class, 'rejected']);
+    Route::resource('/training', TrainingController::class)->only('index', 'store');
 });

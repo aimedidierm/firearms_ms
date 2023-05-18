@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Training;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TrainingController extends Controller
 {
@@ -14,7 +16,8 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        //
+        $trainings = Training::latest()->get();
+        return view('register.trainings', ["data" => $trainings]);
     }
 
     /**
@@ -30,15 +33,44 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => "required|string",
+            "description" => "required|string",
+            "video" => "required|mimes:mp4"
+        ]);
+
+        $uniqueid = uniqid();
+        $extension = $request->file('video')->getClientOriginalExtension();
+        $filename = Carbon::now()->format('Ymd') . '_' . $uniqueid . '.' . $extension;
+
+        $file = $request->file('video');
+        Storage::disk('public')->put($filename, file_get_contents($file));
+        $fileUrl = Storage::url($filename);
+        $training = new Training;
+        $training->title = $request->title;
+        $training->description = $request->description;
+        $training->video = $fileUrl;
+        $training->save();
+
+        return redirect("/register/training");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Training $training)
+    public function show($id)
     {
-        //
+        $training = Training::where("id", $id)->first();
+        if (!empty($training)) {
+            $data = Applicant::where('id', Auth::id())->first();
+            if ($data->status == "pApproved") {
+                return view('applicant.playlist', ["training" => $training]);
+            } else {
+                return view('applicant.notraining');
+            }
+        } else {
+            return redirect("/applicant/training");
+        }
     }
 
     /**
@@ -67,26 +99,28 @@ class TrainingController extends Controller
 
     public function applicantList()
     {
-        // $trainings = Training::latest()->get();
-        $trainings = null;
+        $trainings = Training::latest()->get();
         $data = Applicant::where('id', Auth::id())->first();
         if ($data->status == "pApproved") {
             return view('applicant.training', ["data" => $trainings]);
         } else {
-            // return view('applicant.notraining');
-            return view('applicant.training');
+            return view('applicant.notraining');
         }
     }
 
-    public function playList(Training $training)
+    public function directorList()
     {
-        // $trainings = Training::latest()->get();
-        $trainings = null;
-        $data = Applicant::where('id', Auth::id())->first();
-        if ($data->status == "pApproved") {
-            return view('applicant.playlist', ["data" => $trainings, "training" => $training]);
+        $trainings = Training::latest()->get();
+        return view('director.training', ["data" => $trainings]);
+    }
+
+    public function directorShow($id)
+    {
+        $training = Training::where("id", $id)->first();
+        if (!empty($training)) {
+            return view('director.playlist', ["training" => $training]);
         } else {
-            return view('applicant.notraining');
+            return redirect("/director/training");
         }
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<x-applicant-nav />
+<x-director-nav />
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -15,7 +15,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>{{$training->title}}</h2>
-                        <a href="/applicant/training" class="btn btn-success offset-md-9">Back to trainings list</a>
+                        <a href="/director/training" class="btn btn-success offset-md-9">Back to trainings list</a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

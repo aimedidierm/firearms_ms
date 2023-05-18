@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<x-applicant-nav />
+<x-director-nav />
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -22,7 +22,7 @@
                             @foreach ($data as $item)
                             <div class="col-md-55">
                                 <div class="thumbnail">
-                                    <a href="/applicant/playlist/{{$item->id}}">
+                                    <a href="/director/playlist/{{$item->id}}">
                                         <div class=" image view view-first">
                                             <img style="width: 100%; display: block;" src="/images/media.jpg"
                                                 alt="image" />

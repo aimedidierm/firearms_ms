@@ -27,7 +27,7 @@
                     </li>
                     <li><a href="/register/trained"><i class="fa fa-male"></i> Applicants in training</span></a>
                     </li>
-                    <li><a href="/director/training"><i class="fa fa-futbol-o"></i> Training</span></a>
+                    <li><a href="/register/training"><i class="fa fa-futbol-o"></i> Training</span></a>
                     </li>
                     <li><a href="/register/exam"><i class="fa fa-bars"></i> Exam</span></a>
                     </li>
