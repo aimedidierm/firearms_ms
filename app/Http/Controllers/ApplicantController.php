@@ -208,4 +208,48 @@ class ApplicantController extends Controller
         $data = Applicant::where("id", Auth::guard("applicant")->id())->first();
         return view("applicant.status", ["data" => $data]);
     }
+
+    public function examList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "trainingPassed")->get();
+        return view("register.exam", ["data" => $data]);
+    }
+
+    public function examFail($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "examPassed";
+        $applicant->update();
+        return redirect("/register/exam");
+    }
+
+    public function examRetake($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "trainingPassed";
+        $applicant->update();
+        return redirect("/register/retake");
+    }
+
+    public function examPermanentFail($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->rejected = true;
+        $applicant->update();
+        return redirect("/register/retake");
+    }
+
+    public function examPass($id)
+    {
+        $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
+        $applicant->status = "approved";
+        $applicant->update();
+        return redirect("/register/exam");
+    }
+
+    public function examFailList()
+    {
+        $data = Applicant::latest()->where("rejected", false)->where("status", "examPassed")->get();
+        return view("register.retake", ["data" => $data]);
+    }
 }

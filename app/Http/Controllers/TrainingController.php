@@ -92,9 +92,18 @@ class TrainingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Training $training)
+    public function destroy($id)
     {
-        //
+        $training = Training::find($id);
+        if ($training) {
+            $filename = basename($training->video);
+            Storage::disk('public')->delete($filename);
+            $training->delete();
+
+            return redirect("/register/training");
+        }
+
+        return redirect("/register/training")->with('error', 'Training record not found.');
     }
 
     public function applicantList()
@@ -121,6 +130,16 @@ class TrainingController extends Controller
             return view('director.playlist', ["training" => $training]);
         } else {
             return redirect("/director/training");
+        }
+    }
+
+    public function public($id)
+    {
+        $training = Training::where("id", $id)->first();
+        if (!empty($training)) {
+            return view('training', ["training" => $training]);
+        } else {
+            return redirect(back());
         }
     }
 }

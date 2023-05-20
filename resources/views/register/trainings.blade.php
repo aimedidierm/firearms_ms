@@ -76,9 +76,10 @@
                                                 <td>{{$item->title}}</td>
                                                 <td>{{$item->description}}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-success">Details</a>
-                                                    <a href="#" class="btn btn-primary">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Delete</a>
+                                                    <a href="/training/{{$item->id}}"
+                                                        class="btn btn-success">Details</a>
+                                                    <a href="/register/training/{{$item->id}}"
+                                                        class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
                                             @endforeach

@@ -31,6 +31,8 @@
                     </li>
                     <li><a href="/register/exam"><i class="fa fa-bars"></i> Exam</span></a>
                     </li>
+                    <li><a href="/register/retake"><i class="fa fa-mail-reply"></i> Retake</span></a>
+                    </li>
                     <li><a href="/register/approved"><i class="fa fa-check"></i> Approved</span></a>
                     </li>
                     <li><a href="/register/rejected"><i class="fa fa-times-circle"></i> Rejected</span></a>

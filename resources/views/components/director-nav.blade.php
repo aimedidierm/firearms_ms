@@ -32,7 +32,6 @@
                     </li>
                     <li><a href="/director/training"><i class="fa fa-futbol-o"></i> Training</span></a>
                     </li>
-                    <li><a href="/director/exam"><i class="fa fa-bars"></i> Exams</span></a>
                     </li>
                     <li><a href="/director/approved"><i class="fa fa-check"></i> Approved</span></a>
                     </li>

@@ -31,6 +31,7 @@ Route::post('/', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/create', [ApplicantController::class, 'store']);
 Route::get("/details/{id}", [ApplicationController::class, 'show']);
+Route::get("/training/{id}", [TrainingController::class, 'public']);
 
 //Admin routes
 Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {
@@ -84,4 +85,11 @@ Route::group(["prefix" => "register", "middleware" => ["auth:register", "isRegis
     Route::get('/approved', [ApplicantController::class, 'approved']);
     Route::get('/rejected', [ApplicantController::class, 'rejected']);
     Route::resource('/training', TrainingController::class)->only('index', 'store');
+    Route::get('/training/{id}', [TrainingController::class, 'destroy']);
+    Route::get('/exam', [ApplicantController::class, 'examList']);
+    Route::get('/exam/pass/{id}', [ApplicantController::class, 'examPass']);
+    Route::get('/exam/fail/{id}', [ApplicantController::class, 'examFail']);
+    Route::get('/retake', [ApplicantController::class, 'examFailList']);
+    Route::get('/exam/retake/{id}', [ApplicantController::class, 'examRetake']);
+    Route::get('/exam/pFail/{id}', [ApplicantController::class, 'examPermanentFail']);
 });
