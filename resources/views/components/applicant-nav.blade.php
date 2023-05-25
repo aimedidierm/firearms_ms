@@ -29,8 +29,6 @@
                     </li>
                     <li><a href="/applicant/training"><i class="fa fa-male"></i> Training </span></a>
                     </li>
-                    <li><a href="/applicant/exam"><i class="fa fa-bars"></i> Exam </span></a>
-                    </li>
                 </ul>
             </div>
             <div class="menu_section">
