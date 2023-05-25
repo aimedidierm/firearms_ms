@@ -50,6 +50,7 @@ Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApp
     Route::resource('/application', ApplicationController::class)->only('index', 'store');
     Route::get("/training", [TrainingController::class, 'applicantList']);
     Route::get("/playlist/{id}", [TrainingController::class, 'show']);
+    Route::get("/endTraining", [ApplicantController::class, 'ending']);
 });
 
 //Director routes

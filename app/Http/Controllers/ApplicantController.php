@@ -252,4 +252,12 @@ class ApplicantController extends Controller
         $data = Applicant::latest()->where("rejected", false)->where("status", "examPassed")->get();
         return view("register.retake", ["data" => $data]);
     }
+
+    public function ending()
+    {
+        $applicant = Applicant::find(Auth::guard("applicant")->id());
+        $applicant->status = "trainingPassed";
+        $applicant->update();
+        return redirect("/applicant/training");
+    }
 }
