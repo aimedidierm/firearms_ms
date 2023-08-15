@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\PsychiatricController;
 use App\Http\Controllers\RegisterController;
@@ -32,6 +33,8 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/create', [ApplicantController::class, 'store']);
 Route::get("/details/{id}", [ApplicationController::class, 'show']);
 Route::get("/training/{id}", [TrainingController::class, 'public']);
+ROute::get('/certificate/{id}', [CertificateController::class, 'show']);
+ROute::get('/get/certificate/{id}', [CertificateController::class, 'create']);
 
 //Admin routes
 Route::group(["prefix" => "admin", "middleware" => ["auth", "isAdmin"], "as" => "admin."], function () {
@@ -49,6 +52,7 @@ Route::group(["prefix" => "applicant", "middleware" => ["auth:applicant", "isApp
     Route::get('/status', [ApplicantController::class, 'status']);
     Route::resource('/application', ApplicationController::class)->only('index', 'store');
     Route::get("/training", [TrainingController::class, 'applicantList']);
+    Route::get("/training/{id}", [TrainingController::class, 'trainingTrack']);
     Route::get("/playlist/{id}", [TrainingController::class, 'show']);
     Route::get("/endTraining", [ApplicantController::class, 'ending']);
 });

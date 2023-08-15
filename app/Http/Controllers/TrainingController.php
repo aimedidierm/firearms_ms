@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Training;
+use App\Models\TrainingTrack;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,10 +109,19 @@ class TrainingController extends Controller
 
     public function applicantList()
     {
+        $allTrainings = Training::count();
+        $allApplicantTraining = TrainingTrack::where('applicant_id', Auth::guard('applicant')->id())->count();
+        if ($allTrainings == $allApplicantTraining) {
+            $finished = true;
+        } else {
+            $finished = false;
+        }
+
+        //====================
         $trainings = Training::latest()->get();
         $data = Applicant::where('id', Auth::id())->first();
         if ($data->status == "pApproved") {
-            return view('applicant.training', ["data" => $trainings]);
+            return view('applicant.training', ["data" => $trainings, 'finished' => $finished]);
         } else {
             return view('applicant.notraining');
         }
@@ -140,6 +150,28 @@ class TrainingController extends Controller
             return view('training', ["training" => $training]);
         } else {
             return redirect(back());
+        }
+    }
+
+    public function trainingTrack($id)
+    {
+        $training = Training::find($id);
+        if ($training != null) {
+            $ifTrainingExist = TrainingTrack::where('applicant_id', Auth::guard('applicant')->id())->where('training_id', $id)->first();
+            if ($ifTrainingExist == null) {
+                $track = new TrainingTrack;
+                $track->training_id = $id;
+                $track->applicant_id = Auth::guard('applicant')->id();
+                $track->created_at = now();
+                $track->updated_at = null;
+                $track->save();
+                return redirect("/applicant/playlist/$id");
+            } else {
+                return redirect("/applicant/playlist/$id");
+            }
+            return redirect("/applicant/playlist/$id");
+        } else {
+            return back()->withErrors('Training not found');
         }
     }
 }

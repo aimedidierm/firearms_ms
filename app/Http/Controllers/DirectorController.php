@@ -33,7 +33,7 @@ class DirectorController extends Controller
     {
         $request->validate([
             "names" => "required|string",
-            "email" => "required|email",
+            'email' => ['required', 'email', new \App\Rules\UniqueEmailAcrossTables],
             "address" => "required|string",
             "password" => "required|string"
         ]);

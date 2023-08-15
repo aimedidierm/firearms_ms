@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Application;
+use App\Models\Certificate;
+use App\Models\Training;
+use App\Models\TrainingTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +36,7 @@ class ApplicantController extends Controller
     {
         $request->validate([
             'names' => 'required',
-            'email' => 'required|email',
+            'email' => ['required', 'email', new \App\Rules\UniqueEmailAcrossTables],
             'address' => 'required',
             'phone' => 'required',
             'password' => 'required'
@@ -255,9 +258,32 @@ class ApplicantController extends Controller
 
     public function ending()
     {
-        $applicant = Applicant::find(Auth::guard("applicant")->id());
-        $applicant->status = "trainingPassed";
-        $applicant->update();
-        return redirect("/applicant/training");
+        $allTrainings = Training::count();
+        $allApplicantTraining = TrainingTrack::where('applicant_id', Auth::guard('applicant')->id())->count();
+        if ($allTrainings == $allApplicantTraining) {
+            $finished = true;
+        } else {
+            $finished = false;
+        }
+        if ($finished) {
+            $applicant = Applicant::find(Auth::guard("applicant")->id());
+            $applicant->status = "trainingPassed";
+            $applicant->update();
+            $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $exists = Certificate::where('serialNumber', $randomNumber)->exists();
+            while ($exists) {
+                $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+                $exists = Certificate::where('serialNumber', $randomNumber)->exists();
+            }
+            $certificate = new Certificate;
+            $certificate->serialNumber = $randomNumber;
+            $certificate->applicant_id = Auth::guard("applicant")->id();
+            $certificate->created_at = now();
+            $certificate->updated_at = null;
+            $certificate->save();
+            return redirect("/certificate/$randomNumber");
+        } else {
+            return back()->withErrors('You have to finish all trainings');
+        }
     }
 }

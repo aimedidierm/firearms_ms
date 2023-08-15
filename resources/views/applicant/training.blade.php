@@ -16,6 +16,7 @@
                     <div class="x_title">
                         <h2>Select training</h2>
                         <div class="clearfix"></div>
+                        @if ($finished)
                         <button type="button" data-toggle="modal" data-target="#exampleModal"
                             class="btn btn-danger offset-md-9">Finish all</button>
                         <div class="clearfix"></div>
@@ -41,13 +42,14 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="x_content">
                         <div class="row">
                             @foreach ($data as $item)
                             <div class="col-md-55">
                                 <div class="thumbnail">
-                                    <a href="/applicant/playlist/{{$item->id}}">
+                                    <a href="/applicant/training/{{$item->id}}">
                                         <div class=" image view view-first">
                                             <img style="width: 100%; display: block;" src="/images/media.jpg"
                                                 alt="image" />
