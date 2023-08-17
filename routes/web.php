@@ -8,6 +8,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\PsychiatricController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,8 @@ Route::group(["prefix" => "director", "middleware" => ["auth:director", "isDirec
     Route::get('/rejected', [ApplicantController::class, 'directorRejectedList']);
     Route::get('/training', [TrainingController::class, 'directorList']);
     Route::get("/playlist/{id}", [TrainingController::class, 'directorShow']);
+    Route::get('/report-approved', [ReportController::class, 'approved']);
+    Route::get('/report-rejected', [ReportController::class, 'rejected']);
 });
 
 //Psychiatric routes

@@ -116,8 +116,6 @@ class TrainingController extends Controller
         } else {
             $finished = false;
         }
-
-        //====================
         $trainings = Training::latest()->get();
         $data = Applicant::where('id', Auth::id())->first();
         if ($data->status == "pApproved") {

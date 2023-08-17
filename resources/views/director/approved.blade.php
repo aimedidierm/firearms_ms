@@ -17,6 +17,11 @@
                         <h2>Applicant which had been approved</h2>
                         <div class="clearfix"></div>
                     </div>
+                    <div class="x_title">
+                        <h2>Title</h2>
+                        <a href="/director/report-approved" class="btn btn-primary offset-md-9">Get report</a>
+                        <div class="clearfix"></div>
+                    </div>
                     <div class="x_content">
                         <div class="row">
                             <div class="col-sm-12">

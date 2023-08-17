@@ -244,8 +244,15 @@ class ApplicantController extends Controller
 
     public function examPass($id)
     {
+        $randomNumber = str_pad(mt_rand(0, 999999), 10, '0', STR_PAD_LEFT);
+        $exists = Applicant::where('serialNumber', $randomNumber)->exists();
+        while ($exists) {
+            $randomNumber = str_pad(mt_rand(0, 999999), 10, '0', STR_PAD_LEFT);
+            $exists = Applicant::where('serialNumber', $randomNumber)->exists();
+        }
         $applicant = Applicant::where("id", $id)->where("rejected", false)->first();
         $applicant->status = "approved";
+        $applicant->serialNumber = $randomNumber;
         $applicant->update();
         return redirect("/register/exam");
     }
