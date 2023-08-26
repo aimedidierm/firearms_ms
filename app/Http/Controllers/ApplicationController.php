@@ -35,22 +35,27 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "phone" => "required",
-            "birth" => "required|date",
-            "sex" => "required",
-            "status" => "required",
-            "province" => "required",
-            "district" => "required",
-            "sector" => "required",
-            "cell" => "required",
-            "village" => "required",
-            "personalStatus" => "required",
-            "rank" => "required",
-            "NID" => "required",
-            "type" => "required",
-            "comment" => "required",
-        ]);
+        $request->validate(
+            [
+                "birth" => "required|date",
+                "sex" => "required",
+                "status" => "required",
+                "province" => "required",
+                "district" => "required",
+                "sector" => "required",
+                "cell" => "required",
+                "village" => "required",
+                "personalStatus" => "required",
+                "rank" => "required",
+                "NID" => "required",
+                "type" => "required",
+                "comment" => "required",
+                'phone' => 'required|numeric|regex:/^07\d{8}$/',
+            ],
+            $messages = [
+                'phone.regex' => 'The phone number must start with "07" and be 10 digits long.',
+            ]
+        );
         $application = new Application;
         $application->applicant_id = Auth::guard("applicant")->id();
         $application->phone = $request->phone;

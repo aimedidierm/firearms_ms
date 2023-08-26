@@ -35,13 +35,18 @@ class ApplicantController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'names' => 'required',
-            'email' => ['required', 'email', new \App\Rules\UniqueEmailAcrossTables],
-            'address' => 'required',
-            'phone' => 'required',
-            'password' => 'required'
-        ]);
+        $request->validate(
+            [
+                'names' => 'required',
+                'email' => ['required', 'email', new \App\Rules\UniqueEmailAcrossTables],
+                'address' => 'required',
+                'password' => 'required',
+                'phone' => 'required|numeric|regex:/^07\d{8}$/',
+            ],
+            $messages = [
+                'phone.regex' => 'The phone number must start with "07" and be 10 digits long.',
+            ]
+        );
         $applicant = new Applicant;
         $applicant->names = $request->names;
         $applicant->email = $request->email;
