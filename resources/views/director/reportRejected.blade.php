@@ -70,6 +70,8 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
+                        <p>Done at Kigali, Gasabo at {{ now() }}</p>
                     </div>
                 </div>
             </div>

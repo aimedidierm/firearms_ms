@@ -9,6 +9,7 @@ use App\Models\Training;
 use App\Models\TrainingTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Sms;
 
 class ApplicantController extends Controller
 {
@@ -254,6 +255,29 @@ class ApplicantController extends Controller
         $applicant->status = "approved";
         $applicant->serialNumber = $randomNumber;
         $applicant->update();
+        $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        $exists = Certificate::where('serialNumber', $randomNumber)->exists();
+        while ($exists) {
+            $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $exists = Certificate::where('serialNumber', $randomNumber)->exists();
+        }
+        $certificate = new Certificate;
+        $certificate->serialNumber = $randomNumber;
+        $certificate->applicant_id = $id;
+        $certificate->created_at = now();
+        $certificate->updated_at = null;
+        $certificate->save();
+        $certificateUrl = "localhost:8000/certificate/$certificate->serialNumber";
+        $message = "Hello " . $applicant->names . " your application for firearms had been approved you can find your certificate at " . $certificateUrl . " thank you.";
+        $sms = new Sms();
+        $sms->recipients([$applicant->phone])
+            ->message($message)
+            ->sender(env('SMS_SENDERID'))
+            ->username(env('SMS_USERNAME'))
+            ->password(env('SMS_PASSWORD'))
+            ->apiUrl("www.intouchsms.co.rw/api/sendsms/.json")
+            ->callBackUrl("");
+        $sms->send();
         return redirect("/register/exam");
     }
 
@@ -276,19 +300,7 @@ class ApplicantController extends Controller
             $applicant = Applicant::find(Auth::guard("applicant")->id());
             $applicant->status = "trainingPassed";
             $applicant->update();
-            $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-            $exists = Certificate::where('serialNumber', $randomNumber)->exists();
-            while ($exists) {
-                $randomNumber = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-                $exists = Certificate::where('serialNumber', $randomNumber)->exists();
-            }
-            $certificate = new Certificate;
-            $certificate->serialNumber = $randomNumber;
-            $certificate->applicant_id = Auth::guard("applicant")->id();
-            $certificate->created_at = now();
-            $certificate->updated_at = null;
-            $certificate->save();
-            return redirect("/certificate/$randomNumber");
+            return redirect("/applicant/status");
         } else {
             return back()->withErrors('You have to finish all trainings');
         }

@@ -27,7 +27,7 @@ class CertificateController extends Controller
             $pdf = Pdf::loadView('getGertificate', ['data' => $certificate]);
             return $pdf->download('certificate.pdf');
         } else {
-            return view('getGertificate', ['data' => null]);
+            return "Incorect certificate ID";
         }
     }
 
@@ -48,7 +48,7 @@ class CertificateController extends Controller
             $certificate->load('applicant');
             return view('certificate', ['data' => $certificate]);
         } else {
-            return view('certificate', ['data' => null]);
+            return "Incorect certificate ID";
         }
     }
 
