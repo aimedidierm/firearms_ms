@@ -17,14 +17,14 @@ Laravel web application which helps users to make online application for firearm
 2. From the root directory run `composer install`
 3. You must have a MySQL or PostgreSQL database running locally
 4. Update the database details in `.env` to match your local setup
-   `DB_CONNECTION=mysql
+   ```DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=dbname
 DB_USERNAME=dbusername
-DB_PASSWORD=dbpassword`
+DB_PASSWORD=dbpassword```
 5. Create SMS API configuration details in `.env`
-   `SMS_SENDERID="yourId"
+   ```SMS_SENDERID="yourId"
 SMS_USERNAME="yourUsername"
-SMS_PASSWORD="yourPassword"`
+SMS_PASSWORD="yourPassword"```
 6. Run `php artisan migrate --seed` to setup the database tables and seed essentials such as Achievements and Badges which will be used.
