@@ -38,6 +38,7 @@
             <div class="col-md-12">
                 <div class="card certificate-card">
                     <div class="card-body text-center">
+                        <img src="{{'/images/Rwanda_National_Police.png'}}" alt="" width="200" height="200">
                         <h2>Certificate of Completion</h2>
                         <p>This is to certify that</p>
                         <h4>{{$data->applicant->names}}</h4>
